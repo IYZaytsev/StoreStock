@@ -13,7 +13,15 @@ export default function HomeScreen(props) {
         <Text>Bookmarked Screen</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => props.navigation.navigate("History")}>
+        <Text>History Screen</Text>
+        </TouchableOpacity>
+        
         <Text>----------- Test Area-----------</Text>
+
+        <TouchableOpacity onPress={() => props.navigation.navigate("StockGraph")}>
+        <Text>StockGraph component </Text>
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={() => props.navigation.navigate("BarCode")}>
         <Text>Barcode Reader test</Text>

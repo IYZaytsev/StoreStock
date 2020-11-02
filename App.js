@@ -7,6 +7,8 @@ import HomeScreen from "./screens/Home";
 import ParentCompany from "./screens/ParentCompany";
 import BarCode from "./screens/BarCode";
 import Bookmarked from "./screens/Bookmarked";
+import History from "./screens/History";
+import StockGraphTest from "./screens/StockGraphTest";
 const Stack = createStackNavigator();
 // This file is the main "entry point" of the app
 // It is the first thing that appears on the string 
@@ -22,6 +24,9 @@ export default function App() {
         <Stack.Screen name="ParentCompany" component={ParentCompany} initialParams={{test:"test"}} />
         <Stack.Screen name="BarCode" component={BarCode} initialParams={{test:"test"}} />
         <Stack.Screen name="Bookmarked" component={Bookmarked} initialParams={{test:"test"}} />
+        <Stack.Screen name="History" component={History} initialParams={{test:"test"}} />
+        <Stack.Screen name="StockGraph" component={StockGraphTest} initialParams={{test:"test"}} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
