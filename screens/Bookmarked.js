@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import AlphabetList from "react-native-flatlist-alphabet";
+import AlphabetList from "../components/FlatlistAlphabet/index";
 export default function Bookmarked(props) {
   // Using https://www.npmjs.com/package/react-native-flatlist-alphabet component
   const YourData = [
