@@ -13,6 +13,7 @@ interface Style {
 const styles: Style = {
   container: {
     position: "relative",
+
   },
 
   listItemContainer: {
@@ -22,6 +23,8 @@ const styles: Style = {
     justifyContent: "center",
     borderTopColor: colors.seperatorLine,
     borderTopWidth: 1,
+    backgroundColor: "#F1F9FF",
+    marginRight: 30,
   },
 
   listItemLabel: {
@@ -31,14 +34,15 @@ const styles: Style = {
 
   sectionHeaderContainer: {
     height: sizes.headerHeight,
-    backgroundColor: colors.background.dark,
+    backgroundColor: "#A9AEB2",
+
     justifyContent: "center",
     paddingHorizontal: sizes.spacing.regular,
-    marginRight:25,
+    marginRight: 30,
   },
 
   sectionHeaderLabel: {
-    color: colors.background.light,
+    color: "#000000",
   },
 };
 

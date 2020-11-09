@@ -13,8 +13,8 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
   state: {
     sectionData: ISectionData[];
   } = {
-    sectionData: [],
-  };
+      sectionData: [],
+    };
 
   sectionList!: SectionList;
   onGetItemLayout: any;
@@ -26,7 +26,7 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
 
     this.onGetItemLayout = sectionListGetItemLayout({
       getItemHeight: (_rowData: any, sectionIndex: number, rowIndex: number) =>
-      onGetItemHeight({ sectionIndex, rowIndex }),
+        onGetItemHeight({ sectionIndex, rowIndex }),
       getSectionHeaderHeight: () => sectionHeaderHeight,
       getSectionFooterHeight: () => 0,
     });

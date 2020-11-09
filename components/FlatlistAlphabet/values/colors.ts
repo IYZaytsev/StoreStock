@@ -8,6 +8,7 @@ const colors = {
 
   text: {
     dark: "#1c1b1e",
+
   },
 
   primary: "#007aff",

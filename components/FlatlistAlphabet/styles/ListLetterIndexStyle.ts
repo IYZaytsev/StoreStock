@@ -12,6 +12,7 @@ const styles: any = {
     top: 0,
     right: 5,
     padding: 5,
+    backgroundColor: "#F1F9FF",
   },
 
   letterIndexList: {
