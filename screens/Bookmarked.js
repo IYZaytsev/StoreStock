@@ -23,10 +23,11 @@ export default function Bookmarked(props) {
   ];
 
   return (
-
+    <View style={{flex: 1, backgroundColor: '#F1F9FF'}}>
       <AlphabetList
         data={YourData}
       />
+      </View>
   );
 }
 
