@@ -5,11 +5,7 @@ import TabBarIcon from "./TabBarIcon";
 export default function HistoryEntry(props) {
   return (
     <View >
-      <View
-        style={styles.line}
-      />
-      <View>
-      <Text style={styles.itemName}>Item Name</Text></View>
+      <Text style={styles.itemName}>Item Name</Text>
       <Text style={styles.parentCompany}>Paren Company</Text>
       <View
         style={styles.line}

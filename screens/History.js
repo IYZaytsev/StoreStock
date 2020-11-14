@@ -7,6 +7,12 @@ export default function History(props) {
   return (
     <View style={{flex: 1,backgroundColor: "#f1f9ff",paddingTop: Constants.statusBarHeight,}}>
       <Text style={styles.header}> History</Text>
+      <View
+        style={styles.line}
+      />
+      <HistoryEntry />
+      <HistoryEntry />
+      <HistoryEntry />
       <HistoryEntry />
       <BottomBar
         pages={["BarCode", "Bookmarked"]}
@@ -17,6 +23,10 @@ export default function History(props) {
 }
 
 const styles = StyleSheet.create({
+  line: {
+    borderBottomColor: "#bce0fd",
+    borderBottomWidth: 1,
+  },
   header:{
   marginTop:5,
   paddingBottom:23,
