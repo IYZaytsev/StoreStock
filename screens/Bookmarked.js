@@ -26,6 +26,7 @@ export default function Bookmarked(props) {
 
   return (
     <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
+    <Text style={styles.header}> Bookmarked</Text>
       <AlphabetList
         data={YourData}
       />
@@ -37,5 +38,13 @@ export default function Bookmarked(props) {
   );
 }
 const styles = StyleSheet.create({
+  header:{
+    marginTop:5,
+    paddingBottom:23,
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#000000",
+    }
 
 });

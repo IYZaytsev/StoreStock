@@ -31,7 +31,7 @@ const styles: any = {
   letterIndexLabel: {
     fontSize: sizes.itemFontSize,
     fontWeight: "bold",
-    color: "grey",
+    color: "black",
   },
 };
 

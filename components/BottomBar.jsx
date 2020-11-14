@@ -6,7 +6,7 @@ export default function BottomBar(props) {
   return (
     <View style={styles.border}>
       {props.pages.map((x) => (
-        <TouchableOpacity onPress={() => props.navigation.navigate(x)}>
+        <TouchableOpacity key={x} onPress={() => props.navigation.navigate(x)}>
           <TabBarIcon name={x} />
         </TouchableOpacity>
       ))}

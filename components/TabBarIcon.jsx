@@ -24,5 +24,7 @@ function turnScreenNameIntoIcon(name) {
         return icon_library + "-list-box";
       case "BarCode":
         return icon_library + "-camera";
+      case 'Bookmarked':
+        return icon_library + "-bookmark";
     }
   }

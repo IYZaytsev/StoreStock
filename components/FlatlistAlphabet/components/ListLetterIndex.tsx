@@ -62,14 +62,13 @@ export default class ListLetterIndex extends React.PureComponent<Props> {
   }
 
   renderLetterItem = ({ item, index }: { item: ISectionData; index: number }) => {
-    const computedLabelStyle = this.getComputedLabelStyle();
-    const computedItemStyle = this.getLetterItemStyle();
 
+    const computedItemStyle = this.getLetterItemStyle();
     return (
       <TouchableOpacity onPress={() => this.props.onPressLetter(index)}>
-        <View style={[styles.letterIndexItem, computedItemStyle]}>
-          <Text style={[styles.letterIndexLabel, computedLabelStyle]}>{item.title}</Text>
-        </View>
+          <View style={[styles.letterIndexItem, computedItemStyle]}>
+            <Text style={[styles.letterIndexLabel]}>{item.title}</Text>
+          </View>
       </TouchableOpacity>
     );
   };
