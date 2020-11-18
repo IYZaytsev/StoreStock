@@ -74,7 +74,8 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
     if (renderItem) {
       return renderItem(item);
     }
-
+    // Change this to Bookmark entry
+    // pass props
     return (
       <View style={styles.listItemContainer}>
         <Text style={styles.listItemLabel}>{item.value}</Text>

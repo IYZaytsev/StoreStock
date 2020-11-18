@@ -2,32 +2,19 @@ import * as React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { Dimensions } from "react-native";
 import TabBarIcon from "./TabBarIcon";
-import AlphabetList from "../components/FlatlistAlphabet/index";
-export default function HistoryEntry(props) {
-    const Companies = [
-        {
-          value: "Apple",
-          key: "1",
-        },
-        {
-          value: "Coca-Cola",
-          key: "2",
-        },
-        {
-          value: "Dell",
-          key: "3",
-        },
-        {
-          value: "LG",
-          key: "4",
-        },
-      ];
-
+export default function BookmarkEntry(props) {
   return (
     <View >
-      <AlphabetList 
-        data={companies}
-        />
+      <View style={{flexDirection:"row", marginLeft:81,}}>
+      <View style={styles.circle}></View>
+      <View style={{flexDirection:"column"}}>
+      <Text style={styles.itemName}>Item Name</Text>
+      <Text style={styles.parentCompany}>Paren Company</Text>
+      </View>
+      </View>
+      <View
+        style={styles.line}
+      />
     </View>
   );
 }
@@ -40,8 +27,13 @@ const styles = StyleSheet.create({
     borderBottomColor: "#bce0fd",
     borderBottomWidth: 1,
   },
+  circle:{
+    borderRadius:50,
+    width:40,
+    height:40,
+    backgroundColor:"black",
+  },
   itemName:{
-    marginLeft:81,
     marginTop:21,
     fontSize: 14,
     marginBottom:4,
@@ -52,7 +44,7 @@ const styles = StyleSheet.create({
   },
   parentCompany:{
     marginTop:4,
-    marginLeft:81,
+
     paddingBottom:21,
     fontSize: 10,
     marginBottom:4,

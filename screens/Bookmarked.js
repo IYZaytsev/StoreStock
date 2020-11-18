@@ -28,9 +28,10 @@ export default function Bookmarked(props) {
   return (
     <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
     <Text style={styles.header}> Bookmarked</Text>
-      <AlphabetList
-        data={Companies}
+    <View
+        style={styles.line}
       />
+    <BookmarkEntry/>
       <BottomBar
         pages={["BarCode","History"]}
         navigation={props.navigation}
@@ -39,6 +40,10 @@ export default function Bookmarked(props) {
   );
 }
 const styles = StyleSheet.create({
+  line: {
+    borderBottomColor: "#bce0fd",
+    borderBottomWidth: 1,
+  },
   header:{
     marginTop:5,
     paddingBottom:23,
