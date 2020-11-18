@@ -3,24 +3,25 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import AlphabetList from "../components/FlatlistAlphabet/index";
 import BottomBar from "../components/BottomBar";
 import Constants from "expo-constants";
+import BookmarkEntry from "../components/BookmarkEntry";
 export default function Bookmarked(props) {
   // Using https://www.npmjs.com/package/react-native-flatlist-alphabet component
-  const YourData = [
+  const Companies = [
     {
       value: "Apple",
-      key: "A",
+      key: "1",
     },
     {
-      value: "pear",
-      key: "B",
+      value: "Coca-Cola",
+      key: "2",
     },
     {
-      value: "peach",
-      key: "C",
+      value: "Dell",
+      key: "3",
     },
     {
-      value: "watermelon",
-      key: "D",
+      value: "LG",
+      key: "4",
     },
   ];
 
@@ -28,7 +29,7 @@ export default function Bookmarked(props) {
     <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
     <Text style={styles.header}> Bookmarked</Text>
       <AlphabetList
-        data={YourData}
+        data={Companies}
       />
       <BottomBar
         pages={["BarCode","History"]}
