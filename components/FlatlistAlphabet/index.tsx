@@ -107,6 +107,7 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
           renderItem={this.onRenderItem}
           renderSectionHeader={this.onRenderSectionHeader}
           getItemLayout={this.onGetItemLayout}
+          decelerationRate={.5}
         />
 
         <ListLetterIndex
@@ -118,6 +119,7 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
           containerStyle={this.props.containerStyle}
           alphabetContainer={this.props.alphabetContainer}
           letterItemStyle={this.props.letterItemStyle}
+
         />
       </View>
     );

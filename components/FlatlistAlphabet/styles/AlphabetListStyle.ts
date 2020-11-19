@@ -13,6 +13,7 @@ interface Style {
 const styles: Style = {
   container: {
     position: "relative",
+    paddingBottom: 100,
 
   },
 
@@ -25,7 +26,6 @@ const styles: Style = {
     borderTopWidth: 1,
     backgroundColor: "#F1F9FF",
     marginRight: 30,
-    marginBottom: 56,
   },
 
   listItemLabel: {
