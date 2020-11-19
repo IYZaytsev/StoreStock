@@ -9,19 +9,53 @@ export default function Bookmarked(props) {
   const Companies = [
     {
       value: "Apple",
+      location: "San Fransico, CA",
       key: "1",
     },
     {
       value: "Coca-Cola",
+      location: "Atlanta, GA",
       key: "2",
     },
     {
       value: "Dell",
+      location: "Dallas, TX",
       key: "3",
     },
     {
       value: "LG",
+      location: "Soel, Korea",
       key: "4",
+    },
+    {
+      value: "Avista",
+      location: "City, AK",
+      key: "6",
+    },
+    {
+      value: "Black Hills",
+      location: "City, AZ",
+      key: "7",
+    },
+    {
+      value: "Belk Inc",
+      location: "Charlotte, NC",
+      key: "8",
+    },
+    {
+      value: "FMC Corp",
+      location: "City, WA",
+      key: "9",
+    },
+    {
+      value: "Ingram Micro",
+      location: "Idianapollis, IA",
+      key: "10",
+    },
+    {
+      value: "Nike",
+      location: "Beaverton, OR",
+      key: "11",
     },
   ];
 
@@ -31,7 +65,9 @@ export default function Bookmarked(props) {
     <View
         style={styles.line}
       />
-    <BookmarkEntry/>
+    <AlphabetList 
+      data={Companies}
+      />
       <BottomBar
         pages={["BarCode","History"]}
         navigation={props.navigation}

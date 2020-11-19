@@ -8,6 +8,7 @@ import ISectionData from "./interfaces/ISectionData";
 import IAlphabetListProps from "./interfaces/IAlphabetListProps";
 import styles from "./styles/AlphabetListStyle";
 import sizes from "./values/sizes";
+import BookmarkEntry from "../BookmarkEntry"
 
 export default class AlphabetList extends React.PureComponent<IAlphabetListProps> {
   state: {
@@ -77,9 +78,7 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
     // Change this to Bookmark entry
     // pass props
     return (
-      <View style={styles.listItemContainer}>
-        <Text style={styles.listItemLabel}>{item.value}</Text>
-      </View>
+      <BookmarkEntry companyName={item.value} location={item.location}/>
     );
   };
 
