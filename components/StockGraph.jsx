@@ -24,9 +24,9 @@ const data = {
 };
 
 const chartConfig = {
-  backgroundColor: "#FBFBF8",
-  backgroundGradientFrom: "#FBFBF8",
-  backgroundGradientTo: "#FBFBF8",
+  backgroundColor: "#FFFFFF",
+  backgroundGradientFrom: "#FFFFFF",
+  backgroundGradientTo: "#FFFFFF",
   decimalPlaces: 2, // optional, defaults to 2dp
   color: (opacity = 1) => `rgba(61, 136, 136, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
