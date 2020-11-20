@@ -23,6 +23,11 @@ export default function App() {
           headerShown: false,
         }}
       >
+              <Stack.Screen
+          name="History"
+          component={History}
+          initialParams={{ test: "test" }}
+        />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -41,11 +46,6 @@ export default function App() {
         <Stack.Screen
           name="Bookmarked"
           component={Bookmarked}
-          initialParams={{ test: "test" }}
-        />
-        <Stack.Screen
-          name="History"
-          component={History}
           initialParams={{ test: "test" }}
         />
         <Stack.Screen

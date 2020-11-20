@@ -45,7 +45,6 @@ export default function BarCode(props) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     makeApiCall(data);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   //Return text componenet if no access to camera is don't have permissions to access camera. 
@@ -56,10 +55,13 @@ export default function BarCode(props) {
     return <Text>No access to camera</Text>;
   }
   if (scanned == true && barCodeData == null){
-    return <ActivityIndicator size="large" />
+    return  <View style={{ flex: 1, justifyContent: "center" }}><ActivityIndicator size="large" /></View>
   }
   if (scanned == true & barCodeData != null){
-    return <Text>{barCodeData.name}</Text>
+    // Found result on server
+    props.navigation.navigate("ParentCompany", {
+      data:barCodeData
+    });
   }
   return (
     <View style={{ flex: 1 }}>

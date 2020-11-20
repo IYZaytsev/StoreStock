@@ -4,6 +4,8 @@ import BottomBar from "../components/BottomBar";
 import Constants from "expo-constants";
 import { textSpanOverlapsWith } from "typescript";
 import { Assets } from "@react-navigation/stack";
+import StockGraph from "../components/StockGraph";
+import { Ionicons } from '@expo/vector-icons';
 
 const logo = {
   uri: 'https://reactnative.dev/img/tiny_logo.png',
@@ -12,14 +14,16 @@ const logo = {
 }
 
 export default function ParentCompany(props) {
+  var newData = props.route.params.data;
+  console.log(newData);
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF', paddingTop: Constants.statusBarHeight }}>
 
       <ScrollView style={styles.scrollView}>
 
-        <Text style={styles.header}> Parent Company: Nestle, S.A.</Text>
+        <Text style={styles.header}> Parent Company:  {newData.name}</Text>
 
-        <Image source={{ uri: 'https://logo.clearbit.com/nestle.com' }} style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 100 }} />
+        <Image source={{ uri: newData.logo_url }} style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 100 }} />
 
         <Text style={styles.eco}> Eco-Friendly </Text>
 
@@ -33,30 +37,7 @@ export default function ParentCompany(props) {
         <ScrollView style={{ flex: 1, backgroundColor: '#FFFFFF', /*paddingTop: Constants.statusBarHeight*/ }}>
 
           <Text style={styles.body}>
-            Nestlé S.A., together with its subsidiaries, operates as a food and beverage company.
-            The company operates through Zone Europe, Middle East and North Africa;
-            Zone Americas; Zone Asia, Oceania and sub-Saharan Africa; and Nestlé Waters segments.
-            It offers baby foods under the Cerelac, Gerber, and NaturNes brands; bottled water
-            under the Nestlé Pure Life, Perrier, Poland Spring, and S.Pellegrino brands; cereals
-            under the Fitness, Nesquik, cheerios, and Lion Cereals brands; and chocolate and
-            confectionery products under the KitKat, Nestle L'atelier, Nestle Toll House,
-            Milkybar, Smarties, Quality Street, Aero, Garoto, Orion, and Cailler brands.
-          </Text>
-
-          <Text style={styles.body}>
-            The company also provides coffee products under the Nescafé original, Nespresso,
-            Nescafé Dolce Gusto, Nescafé, Nescafé Original 3 in 1, Coffee-Mate, Nescafé Gold,
-            and Nescafé Cappuccino brands; culinary, chilled, and frozen foods under the Maggi,
-            Hot Pockets, Stouffer's, Thomy, Jacks, TombStone, Buitoni, DiGiorno, and Lean Cuisine
-            brands; dairy products under the Carnation, Nido, Coffee-Mate, and La Laitière brands;
-            and drinks under the Nesquik, Nestea, and Milo brands. In addition, it offers food service
-            products under the Milo, Nescafé, Maggi, Chef, Nestea, Stouffer's, Chef-Mate, Sjora, Minor's,
-            and Lean Cuisine brand names; healthcare nutrition products under the Boost, Peptamen, Resource,
-            and Nutren Junior brands; ice cream products under the Dreyer's, Mövenpick, Häagen-Dazs, Nestlé
-            Ice Cream, and Extrême brands; and pet care products under the Purina, ONE, Alpo, Felix, Pro Plan,
-            Cat Chow, Fancy Feast, Chef Michael's, Bakers, Friskies, Dog Chow, Beneful, and Gourmet brands.
-            Further, it provides coffee creamers under the Starbucks brand. The company was founded in 1866
-            and is headquartered in Vevey, Switzerland.
+            {newData.summary}
           </Text>
         </ScrollView>
         {/* Inner Scroll ends here */}
@@ -64,10 +45,11 @@ export default function ParentCompany(props) {
         <View style={styles.line} />
 
         <Text style={styles.link}
-          onPress={() => Linking.openURL('https://www.nestle.com/')}>
+          onPress={() => Linking.openURL('https://www.pepsi.com//')}>
           Open Website
         </Text>
-
+        <StockGraph data={newData["5day_prices"]}/>
+        <Stats weekHigh={newData.fiftyTwoWeekHigh} weekLow={newData.fiftyTwoWeekLow} marketCap={newData.marketCap} />
       </ScrollView>
 
       <BottomBar
@@ -76,6 +58,20 @@ export default function ParentCompany(props) {
       />
     </View>
 
+  );
+}
+
+const Stats = (props) => {
+  return (
+    <View style={containerStyle.container}>
+      <View style={containerStyle.rowContainer}>
+        <Text style={textStyle.weekStats}>52 Week High: {props.weekLow}</Text>
+        <Text style={[textStyle.weekStats, textStyle.weekLow]}>52 Week Low: {props.weekHigh}</Text>
+      </View>
+      <View style={containerStyle}>
+        <Text style={[textStyle.weekStats, textStyle.marketCap]}>Market Cap: {props.marketCap}</Text>
+      </View>
+    </View>
   );
 }
 
@@ -122,3 +118,24 @@ const styles = StyleSheet.create({
   }
 
 });
+const containerStyle = StyleSheet.create({
+  container: {
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  rowContainer: {
+  }, 
+}); 
+
+const textStyle = StyleSheet.create({
+  
+  weekStats: {
+    fontSize: 30,
+    color: "#000000",
+    fontWeight: "normal",
+  },
+  weekLow: {
+  },
+}); 

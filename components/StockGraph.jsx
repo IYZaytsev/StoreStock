@@ -6,23 +6,6 @@ import { Dimensions } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeigth = Dimensions.get("window").height;
-
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June"],
-  datasets: [
-    {
-      data: [
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100
-      ]
-    }
-  ]
-};
-
 const chartConfig = {
   backgroundColor: "#FFFFFF",
   backgroundGradientFrom: "#FFFFFF",
@@ -33,7 +16,23 @@ const chartConfig = {
 };
 
 
-export default function StockGraph() {
+export default function StockGraph(props) {
+
+var data = {
+  labels: ["1", "2", "3", "4", "5"],
+  datasets: [
+    {
+      data: [
+        props.data[0].close,
+        props.data[1].close,
+        props.data[2].close,
+        props.data[3].close,
+        props.data[4].close,
+      ]
+    }
+  ]
+};
+
   // Example of json for five day price
   /*
     (last entry in the array is current day)
@@ -70,5 +69,5 @@ export default function StockGraph() {
 
   const styles = StyleSheet.create({
     border:{borderStyle:"dotted", borderColor:"red",borderWidth:2, borderRadius:15},
-    colorfulText:{color:"black"}
+    colorfulText:{color:"black"},
   });
