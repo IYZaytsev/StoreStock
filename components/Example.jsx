@@ -7,11 +7,9 @@ export default function CustomComponent(props) {
     // Using more compoenents in ur code makes performance better and is easier to deal with 
     // Becausue when you can rerender just a single componenet on a page instead of the whole thing 
     // So if you have a whole page of componenets and one has a stateupdate, it doesnt rerender the whole page
-    
     return (
       <View style={styles.border}>
         <Text style={styles.colorfulText}>Our Custom Componenet {props.word}</Text>
-
       </View>
     );
   }
