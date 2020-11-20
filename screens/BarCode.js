@@ -17,8 +17,7 @@ export default function BarCode(props) {
   }, []);
   // Makes API call
   async function makeApiCall(barcodeID){
-    let urlString = `https://api.upcdatabase.org/product/${barcodeID}?apikey=${apiKey}`;
-    console.log(urlString);
+    let urlString = `http://161.35.52.56:5000/product/${barcodeID}`;
     try {
         //Converting the HTTP response to JS object from JSON payload
         let response = await fetch(urlString);
@@ -34,7 +33,7 @@ export default function BarCode(props) {
   // handles barcode being scanned, API fetch logic will go here
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    //makeApiCall(data);
+    makeApiCall(data);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
@@ -45,7 +44,12 @@ export default function BarCode(props) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  
+  if (scanned == true && barCodeData == false){
+    return //loading
+  }
+  if (scanned == true & barCodeData == true){
+    return //homepage
+  }
   return (
     <View style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type} onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}>
