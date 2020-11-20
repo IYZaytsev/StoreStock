@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Button} from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, Button,ActivityIndicator} from "react-native";
 import { Camera } from 'expo-camera';
 export default function BarCode(props) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -22,12 +22,23 @@ export default function BarCode(props) {
         //Converting the HTTP response to JS object from JSON payload
         let response = await fetch(urlString);
         var objectFromJSON = await response.json();
-        console.log("response from server is");
-        console.log(objectFromJSON);
       } catch (error) {
         console.error(error);
       }
       //Once API call is done, chaning the 
+      if (objectFromJSON["result"] == "no data can be found about this product" || objectFromJSON["result"]["ticker"] == "none"){
+        setScanned(false);
+        setBarCodeData(null);
+      }
+      let ticker = objectFromJSON["result"]["ticker"];
+      urlString = `http://161.35.52.56:5000/company/${ticker}`;
+      try {
+          //Converting the HTTP response to JS object from JSON payload
+          let response = await fetch(urlString);
+          objectFromJSON = await response.json();
+        } catch (error) {
+          console.error(error);
+        }
       setBarCodeData(objectFromJSON)
   }
   // handles barcode being scanned, API fetch logic will go here
@@ -44,11 +55,11 @@ export default function BarCode(props) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  if (scanned == true && barCodeData == false){
-    return //loading
+  if (scanned == true && barCodeData == null){
+    return <ActivityIndicator size="large" />
   }
-  if (scanned == true & barCodeData == true){
-    return //homepage
+  if (scanned == true & barCodeData != null){
+    return <Text>{barCodeData.name}</Text>
   }
   return (
     <View style={{ flex: 1 }}>
