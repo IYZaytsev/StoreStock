@@ -17,8 +17,9 @@ export default function ParentCompany(props) {
 
       <ScrollView style={styles.scrollView}>
 
-        <Text style={styles.header}> PARENT! Company: Nestle, S.A.</Text>
+        <Text style={styles.header}> Parent Company: Nestle, S.A.</Text>
         <Image source={logo} />
+        <Image source={require('../assets/favicon.png')} />
         <View
           style={styles.line}
           />
