@@ -2,20 +2,12 @@ import * as React from "react";
 import { Image, StyleSheet, TouchableOpacity, View, Text, Linking, ScrollView } from "react-native";
 import BottomBar from "../components/BottomBar";
 import Constants from "expo-constants";
-import { textSpanOverlapsWith } from "typescript";
-import { Assets } from "@react-navigation/stack";
 import StockGraph from "../components/StockGraph";
-import { Ionicons } from '@expo/vector-icons';
 
-const logo = {
-  uri: 'https://reactnative.dev/img/tiny_logo.png',
-  width: 64,
-  height: 64
-}
+
 
 export default function ParentCompany(props) {
   var newData = props.route.params.data;
-  console.log(newData);
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF', paddingTop: Constants.statusBarHeight }}>
 
@@ -45,7 +37,7 @@ export default function ParentCompany(props) {
         <View style={styles.line} />
 
         <Text style={styles.link}
-          onPress={() => Linking.openURL('https://www.pepsi.com//')}>
+          onPress={() => Linking.openURL(newData.website)}>
           Open Website
         </Text>
         <StockGraph data={newData["5day_prices"]}/>

@@ -25,12 +25,12 @@ export default function BarCode(props) {
       } catch (error) {
         console.error(error);
       }
-      //Once API call is done, chaning the 
-      if (objectFromJSON["result"] == "no data can be found about this product" || objectFromJSON["result"]["ticker"] == "none"){
+      // No data can be found about this product, let user try to scan something else
+      if ("result" in objectFromJSON ){
         setScanned(false);
         setBarCodeData(null);
       }
-      let ticker = objectFromJSON["result"]["ticker"];
+      let ticker = objectFromJSON["ticker"];
       urlString = `http://161.35.52.56:5000/company/${ticker}`;
       try {
           //Converting the HTTP response to JS object from JSON payload
