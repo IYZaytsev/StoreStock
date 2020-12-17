@@ -19,7 +19,7 @@ export default function Bookmarked(props) {
   var uniqueValues = arrayOfContests(props.route.params.bookmarkedEntry);
   const initState = () => {
     uniqueValues.map((x) => {
-      initialstates[x] = { value: "Unknown", location: "Unknown", ticker: "Unknown", index=null };
+      initialstates[x] = { value: "Unknown", location: "Unknown", ticker: "Unknown", index: null };
     });
   };
   initState();
