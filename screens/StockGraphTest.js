@@ -42,7 +42,6 @@ const containerStyle = StyleSheet.create({
 }); 
 
 const textStyle = StyleSheet.create({
-  
   weekStats: {
     fontSize: 30,
     fontFamily: "roboto",

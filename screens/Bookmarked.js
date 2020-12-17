@@ -1,10 +1,69 @@
 import * as React from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, ScrollView } from "react-native";
 import AlphabetList from "../components/FlatlistAlphabet/index";
 import BottomBar from "../components/BottomBar";
 import Constants from "expo-constants";
 import BookmarkEntry from "../components/BookmarkEntry";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Bookmarked(props) {
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('@candidatesSelected', JSON.stringify(value))
+    } catch (e) {
+      // saving error
+    }
+  } 
+
+  var initialstates = {};
+  var uniqueValues = arrayOfContests(props.route.params.bookmarkedEntry);
+  const initState = () => {
+    uniqueValues.map((x) => {
+      initialstates[x] = { value: "Unknown", location: "Unknown", ticker: "Unknown", index=null };
+    });
+  };
+  initState();
+
+  const [userCompanyChoice, setuserCompanyChoice] = useState(initialstates);
+  // Figuring out how many unique companies there are from json data
+  function arrayOfContests(jsData) {
+    var companies = [];
+    jsData.map((x) => {
+      contests.push(x.company);
+    });
+    return contests.filter((c, index) => {
+      return contests.indexOf(c) === index;
+    });
+  }
+
+  //returns the number of candidates that have been selected
+  function companySelected() {
+    let x = Object.keys(userCompanyChoice).filter(x => (
+      userCompanyChoice[x].name != "Unknown")).length;
+    return x;
+  }
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@candidatesSelected')
+      if (value !== null) {
+        setuserCompanyChoice(JSON.parse(value));
+      }
+    } catch (e) {
+      // error reading value
+    }
+  }
+
+  useEffect(() => {
+    if (companySelected() == 0) {
+      getData();
+    }
+  }, []);
+
+  if (companySelected() != 0) {
+    storeData(userCompanyChoice);
+  }
+
   // Using https://www.npmjs.com/package/react-native-flatlist-alphabet component
   const Companies = [
     {
@@ -65,13 +124,15 @@ export default function Bookmarked(props) {
     <View
         style={styles.line}
       />
-    <AlphabetList 
-      data={Companies}
-      />
+      <ScrollView>
+        <AlphabetList 
+          data={userCompanyChoice}
+        />
       <BottomBar
-        pages={["BarCode","History"]}
-        navigation={props.navigation}
-      />
+          pages={["BarCode","History"]}
+          navigation={props.navigation}
+        />
+      </ScrollView>
       </View>
   );
 }
