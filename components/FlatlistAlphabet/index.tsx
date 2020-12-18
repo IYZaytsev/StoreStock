@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SectionList, View, Text, SectionListData } from "react-native";
+import { SectionList, View, Text, SectionListData,TouchableOpacity } from "react-native";
 import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
 import getSectionData from "./utilities/getSectionData";
 import ListLetterIndex from "./components/ListLetterIndex";
@@ -78,7 +78,11 @@ export default class AlphabetList extends React.PureComponent<IAlphabetListProps
     // Change this to Bookmark entry
     // pass props
     return (
+      <TouchableOpacity  onPress={() => item.navigation.navigate("ParentCompany", {
+        data:item.ticker
+      })}>
       <BookmarkEntry companyName={item.value} location={item.location}/>
+      </TouchableOpacity>
     );
   };
 

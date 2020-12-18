@@ -25,21 +25,14 @@ export default function BarCode(props) {
       } catch (error) {
         console.error(error);
       }
-      //Once API call is done, chaning the 
-      if (objectFromJSON["result"] == "no data can be found about this product" || objectFromJSON["result"]["ticker"] == "none"){
+      // No data can be found about this product, let user try to scan something else
+      if ("result" in objectFromJSON ){
         setScanned(false);
         setBarCodeData(null);
       }
-      let ticker = objectFromJSON["result"]["ticker"];
-      urlString = `http://161.35.52.56:5000/company/${ticker}`;
-      try {
-          //Converting the HTTP response to JS object from JSON payload
-          let response = await fetch(urlString);
-          objectFromJSON = await response.json();
-        } catch (error) {
-          console.error(error);
-        }
-      setBarCodeData(objectFromJSON)
+      let ticker = objectFromJSON["ticker"];
+      setBarCodeData(ticker)
+ 
   }
   // handles barcode being scanned, API fetch logic will go here
   const handleBarCodeScanned = ({ type, data }) => {

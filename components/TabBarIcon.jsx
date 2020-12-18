@@ -21,7 +21,7 @@ function turnScreenNameIntoIcon(name) {
     }
     switch (name) {
       case "History":
-        return icon_library + "-list-box";
+        return icon_library + "-list";
       case "BarCode":
         return icon_library + "-camera";
       case 'Bookmarked':
