@@ -1,77 +1,104 @@
-import * as React from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TouchableOpacity, View, Text, ScrollView, ActivityIndicator } from "react-native";
 import AlphabetList from "../components/FlatlistAlphabet/index";
 import BottomBar from "../components/BottomBar";
 import Constants from "expo-constants";
-import BookmarkEntry from "../components/BookmarkEntry";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Bookmarked(props) {
-  // Using https://www.npmjs.com/package/react-native-flatlist-alphabet component
+  const [bookMarkData, setBookMarkData] = useState(null);
+  useEffect(() => {
+    getData();
+ 
+  }, [bookMarkData]);
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('@bookMarkedCompanies', JSON.stringify(value))
+    } catch (e) {
+      // saving error
+    }
+  } 
+
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@bookMarkedCompanies')
+      let objectFromString = await JSON.parse(value)
+      if (value == null){
+        // if bookmarked listed is empty don't display loading indicator
+        setBookMarkData(-1);
+      }
+      else{
+        setBookMarkData(objectFromString);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  }
+
+
   const Companies = [
     {
       value: "Apple",
       location: "San Fransico, CA",
+      ticker: "AAPL",
+      navigation:props.navigation,
       key: "1",
     },
     {
       value: "Coca-Cola",
       location: "Atlanta, GA",
+      ticker: "KO",
+      navigation:props.navigation,
       key: "2",
     },
-    {
-      value: "Dell",
-      location: "Dallas, TX",
-      key: "3",
-    },
-    {
-      value: "LG",
-      location: "Soel, Korea",
-      key: "4",
-    },
-    {
-      value: "Avista",
-      location: "City, AK",
-      key: "6",
-    },
-    {
-      value: "Black Hills",
-      location: "City, AZ",
-      key: "7",
-    },
-    {
-      value: "Belk Inc",
-      location: "Charlotte, NC",
-      key: "8",
-    },
-    {
-      value: "FMC Corp",
-      location: "City, WA",
-      key: "9",
-    },
-    {
-      value: "Ingram Micro",
-      location: "Idianapollis, IA",
-      key: "10",
-    },
-    {
-      value: "Nike",
-      location: "Beaverton, OR",
-      key: "11",
-    },
+  
   ];
-
+  if (bookMarkData == -1) {
+    return (
+      <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
+      <Text style={styles.header}> Bookmarked</Text>
+      <View
+          style={styles.line}
+        />
+        <BottomBar
+            pages={["BarCode","History"]}
+            navigation={props.navigation}
+          />
+        </View>
+    );
+  }
+  if (bookMarkData == null) {
+    return (
+      <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
+      <Text style={styles.header}> Bookmarked</Text>
+      <View
+          style={styles.line}
+        />
+        <ActivityIndicator size="large" color="#bce0fd" />
+        <BottomBar
+            pages={["BarCode","History"]}
+            navigation={props.navigation}
+          />
+        </View>
+    );
+  }
   return (
     <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
     <Text style={styles.header}> Bookmarked</Text>
     <View
         style={styles.line}
       />
-    <AlphabetList 
-      data={Companies}
-      />
+      <ScrollView>
+        <AlphabetList 
+          data={bookMarkData}
+          navigation={props.navigation}
+        />
+      </ScrollView>
       <BottomBar
-        pages={["BarCode","History"]}
-        navigation={props.navigation}
-      />
+          pages={["BarCode","History"]}
+          navigation={props.navigation}
+        />
       </View>
   );
 }

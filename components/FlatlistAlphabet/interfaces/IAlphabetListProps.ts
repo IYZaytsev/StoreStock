@@ -3,6 +3,7 @@ import IData from "./IData";
 export default interface Props {
   /** The array of objects data. */
   data: IData[];
+  navigation: unknown;
   /** The sectionlist container style. */
   style?: any;
   /**
