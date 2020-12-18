@@ -1,12 +1,16 @@
-import * as React from "react";
-import { StyleSheet, TouchableOpacity, View, Text, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TouchableOpacity, View, Text, ScrollView, ActivityIndicator } from "react-native";
 import AlphabetList from "../components/FlatlistAlphabet/index";
 import BottomBar from "../components/BottomBar";
 import Constants from "expo-constants";
-import BookmarkEntry from "../components/BookmarkEntry";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Bookmarked(props) {
+  const [bookMarkData, setBookMarkData] = useState(null);
+  useEffect(() => {
+    getData();
+ 
+  }, [bookMarkData]);
   const storeData = async (value) => {
     try {
       await AsyncStorage.setItem('@bookMarkedCompanies', JSON.stringify(value))
@@ -19,7 +23,14 @@ export default function Bookmarked(props) {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@bookMarkedCompanies')
-     
+      let objectFromString = await JSON.parse(value)
+      if (value == null){
+        // if bookmarked listed is empty don't display loading indicator
+        setBookMarkData(-1);
+      }
+      else{
+        setBookMarkData(objectFromString);
+      }
     } catch (e) {
       // error reading value
     }
@@ -43,7 +54,35 @@ export default function Bookmarked(props) {
     },
   
   ];
-
+  if (bookMarkData == -1) {
+    return (
+      <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
+      <Text style={styles.header}> Bookmarked</Text>
+      <View
+          style={styles.line}
+        />
+        <BottomBar
+            pages={["BarCode","History"]}
+            navigation={props.navigation}
+          />
+        </View>
+    );
+  }
+  if (bookMarkData == null) {
+    return (
+      <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
+      <Text style={styles.header}> Bookmarked</Text>
+      <View
+          style={styles.line}
+        />
+        <ActivityIndicator size="large" color="#bce0fd" />
+        <BottomBar
+            pages={["BarCode","History"]}
+            navigation={props.navigation}
+          />
+        </View>
+    );
+  }
   return (
     <View style={{flex: 1, backgroundColor: '#F1F9FF',paddingTop: Constants.statusBarHeight}}>
     <Text style={styles.header}> Bookmarked</Text>
@@ -52,7 +91,8 @@ export default function Bookmarked(props) {
       />
       <ScrollView>
         <AlphabetList 
-          data={Companies}
+          data={bookMarkData}
+          navigation={props.navigation}
         />
       </ScrollView>
       <BottomBar

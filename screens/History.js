@@ -1,89 +1,109 @@
-import * as React from "react";
-import { StyleSheet, TouchableOpacity, View, Text, FlatList,SafeAreaView} from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  ActivityIndicator,
+} from "react-native";
 import BottomBar from "../components/BottomBar";
 import HistoryEntry from "../components/HistoryEntry";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
-const renderItem = (props) => (
-<HistoryEntry itemName={props.item.value}
-  parentCompany={props.item.company}
-/>
-);
+
 export default function History(props) {
-  const Products = [
-    {
-      value: "IPhone 11",
-      company: "Apple",
-      key: "1",
-    },
-    {
-      value: "Diet Coke 12 oz",
-      company: "Coca-Cola",
-      key: "2",
-    },
-    {
-      value: "13 inch XPS",
-      company: "Dell",
-      key: "3",
-    },
-    {
-      value: "Smart TV",
-      company: "LG",
-      key: "4",
-    },
-    {
-      value: "IPhone 11",
-      company: "Apple",
-      key: "5",
-    },
-    {
-      value: "Diet Coke 12 oz",
-      company: "Coca-Cola",
-      key: "6",
-    },
-    {
-      value: "13 inch XPS",
-      company: "Dell",
-      key: "7",
-    },
-    {
-      value: "Smart TV",
-      company: "LG",
-      key: "8",
-    },
-    {
-      value: "IPhone 11",
-      company: "Apple",
-      key: "9",
-    },
-    {
-      value: "Diet Coke 12 oz",
-      company: "Coca-Cola",
-      key: "10",
-    },
-    {
-      value: "13 inch XPS",
-      company: "Dell",
-      key: "11",
-    },
-    {
-      value: "Smart TV",
-      company: "LG",
-      key: "12",
-    },
-  ];
-  return (
-    <View style={{flex: 1,backgroundColor: "#f1f9ff",paddingTop: Constants.statusBarHeight,}}>
-      <Text style={styles.header}> History</Text>
+  const [historyData, setHistoryData] = useState(null);
+  useEffect(() => {
+    getData();
+  }, );
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem("@History", JSON.stringify(value));
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@History");
+      let objectFromString = await JSON.parse(value);
+      if (value == null) {
+        // if bookmarked listed is empty don't display loading indicator
+        setHistoryData(-1);
+      } else {
+        setHistoryData(objectFromString);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+  const renderItem = (passedItems) => (
+    <TouchableOpacity  onPress={() => props.navigation.navigate("ParentCompany", {
+      data:passedItems.item.ticker
+    })}>
+    <HistoryEntry
+      itemName={passedItems.item.value}
+      parentCompany={passedItems.item.company}
+    />
+      </TouchableOpacity>
+  );
+
+  if (historyData == -1) {
+    return (
       <View
-        style={styles.line}
-      />
-      <SafeAreaView style={{paddingBottom:100}}>
-      <FlatList
-        data={Products}
-        renderItem={renderItem}
-        keyExtractor={item => item.key}
-      />
+        style={{
+          flex: 1,
+          backgroundColor: "#F1F9FF",
+          paddingTop: Constants.statusBarHeight,
+        }}
+      >
+        <Text style={styles.header}> History</Text>
+        <View style={styles.line} />
+        <BottomBar
+          pages={["BarCode", "Bookmarked"]}
+          navigation={props.navigation}
+        />
+      </View>
+    );
+  }
+  if (historyData == null) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#F1F9FF",
+          paddingTop: Constants.statusBarHeight,
+        }}
+      >
+        <Text style={styles.header}> History</Text>
+        <View style={styles.line} />
+        <ActivityIndicator size="large" color="#bce0fd" />
+        <BottomBar
+          pages={["BarCode", "Bookmarked"]}
+          navigation={props.navigation}
+        />
+      </View>
+    );
+  }
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#f1f9ff",
+        paddingTop: Constants.statusBarHeight,
+      }}
+    >
+      <Text style={styles.header}> History</Text>
+      <View style={styles.line} />
+      <SafeAreaView style={{ paddingBottom: 100 }}>
+        <FlatList
+          data={historyData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.key}
+        />
       </SafeAreaView>
       <BottomBar
         pages={["BarCode", "Bookmarked"]}
@@ -98,12 +118,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "#bce0fd",
     borderBottomWidth: 1,
   },
-  header:{
-  marginTop:5,
-  paddingBottom:23,
-  fontSize: 14,
-  fontWeight: "bold",
-  textAlign: "center",
-  color: "#000000",
-  }
+  header: {
+    marginTop: 5,
+    paddingBottom: 23,
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#000000",
+  },
 });

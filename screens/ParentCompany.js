@@ -57,8 +57,6 @@ export default function ParentCompany(props) {
           }}
         />
 
-        <Text style={styles.eco}> Eco-Friendly </Text>
-
         {/* <Image source={logo} /> */}
 
         {/* <Image source={require('../assets/favicon.png')} /> */}
@@ -94,8 +92,10 @@ export default function ParentCompany(props) {
       </ScrollView>
 
       <BottomBar
-        pages={["BarCode", "History", "Bookmarked"]}
+        pages={["BarCode", "History", "Bookmarked-Action"]}
         navigation={props.navigation}
+        pageData={financeData}
+        ticker={props.route.params.data}
       />
     </View>
   );
