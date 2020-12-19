@@ -12,12 +12,13 @@ import BottomBar from "../components/BottomBar";
 import HistoryEntry from "../components/HistoryEntry";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
-
+import { useIsFocused } from '@react-navigation/native'
 export default function History(props) {
   const [historyData, setHistoryData] = useState(null);
+  const isFocused = useIsFocused()
   useEffect(() => {
     getData();
-  }, );
+  },[isFocused]);
   const storeData = async (value) => {
     try {
       await AsyncStorage.setItem("@History", JSON.stringify(value));
